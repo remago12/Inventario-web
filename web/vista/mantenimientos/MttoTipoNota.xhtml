@@ -1,0 +1,63 @@
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:f="http://java.sun.com/jsf/core" 
+    template="../template.xhtml">
+    <ui:define name="contenido">
+        <h:form id="IDFrmCargo">
+            <p:tabView>
+                <p:tab title="Busquedas">
+                    <h:form id="IDForm">
+                    <h:panelGrid columns="2">
+                        <h:outputLabel value="Id Nota:"/>
+                        <p:inputText value="" />
+                        <h:outputLabel value="Nombre"/>
+                        <p:inputText value=""/>
+                        <h:outputLabel value="Descripcion:"/>
+                        <p:inputText value=""/>
+                        <p:commandButton actionListener="#{tipoNotaMB.busqTipoNot()}" icon="ui-icon-search" update="IDTableCargo"></p:commandButton>
+                   </h:panelGrid>
+                            
+                    <p:dataTable id="IDTableCargo" var="car" value=""> 
+                        <f:facet name="header">
+                            Resultado de la Busqueda
+                        </f:facet>
+                        <p:column headerText="ID">
+                            <h:outputText value=""/>
+                        </p:column>
+                        <p:column headerText="Nombre">
+                            <h:outputText value=""/>
+                        </p:column>
+                        <p:column headerText="Descripcion">
+                            <h:outputText value=""/>
+                        </p:column>
+                        
+                    </p:dataTable>
+                    </h:form>    
+                </p:tab>
+                <p:tab title="Detalle">
+                    <h:panelGrid columns="2">
+                        <h:outputLabel value="Id Nota:"/>
+                        <p:inputText value="" />
+                        <h:outputLabel value="Nombre"/>
+                        <p:inputText value=""/>
+                        <h:outputLabel value="Descripcion:"/>
+                        <p:inputText value=""/>
+                    </h:panelGrid>
+                </p:tab>
+            <h:panelGrid columns="2">
+                <h:outputLabel value="Id Nota:"/>
+                <p:inputText value="" />
+                <h:outputLabel value="Nombre"/>
+                <p:inputText value=""/>
+                <h:outputLabel value="Descripcion:"/>
+                <p:inputText value=""/>
+            </h:panelGrid>
+            </p:tabView>
+        </h:form>    
+    </ui:define>
+</ui:composition>
+
+
+
+
