@@ -1,0 +1,262 @@
+body{
+    font-family: Verdana;
+    font-size:12px;
+
+}
+
+.header .ui-layout-unit-content{
+    //background-image: url(../images/ImagenRepeticionFondoTotal_Rojo.jpg)!important;
+    //background-color: #004276;
+    background-repeat:  repeat!important;
+    padding: 0px!important;
+}
+#logo{
+    position: relative;
+    top: 20%;
+    width:300px;
+    margin-left: 25px;
+}
+
+#date{
+    color:white;
+    float:right;
+    margin-right: 25px;
+}
+		
+.footer .ui-layout-unit-content{
+    text-align:center!important;
+    font-weight: bolder;
+    background:black;
+    color:white;
+}
+		
+.titles{
+    font-weight: bold!important;
+    background-image: url(../images/bullet-red-arrow.png)!important;
+    background-repeat: no-repeat!important;
+    margin-left: 100px!important;
+}
+		
+.MenuOpciones{
+    font-weight: bold!important;
+    background-color:#cc0000;
+}
+		
+.tituloPlano{
+    font-weight: bolder!important;
+}
+
+.ui-datalist-item a{
+    text-decoration: none!important;
+    color:blue!important;
+    display: block;
+    text-align:left;
+    -webkit-transition: font-size 0.3s ease, background-color 0.3s ease;
+    -moz-transition: font-size 0.3s ease, background-color 0.3s ease;
+    -o-transition: font-size 0.3s ease, background-color 0.3s ease;
+    -ms-transition: font-size 0.3s ease, background-color 0.3s ease;
+    transition: font-size 0.3s ease, background-color 0.3s ease;
+}
+			
+.ui-datalist-item a:hover{	
+    font-size: 13px;
+    font-weight:bolder;
+}
+.ui-datalist-item{
+    border-bottom: 2px solid #ccc!important;
+    text-align:left;
+}
+
+.ui-datalist-item img {
+    float: left;
+    margin: 0 15px 0 0;
+}
+
+.ui-datalist-data{
+    list-style-type: none!important;
+    margin: 0!important;
+    padding: 0!important;
+    line-height: 35px;
+}
+
+.ui-datalist-content{
+    height:300px!important;
+    overflow: auto;
+}
+
+.titles .text{
+    margin-left: 20px;
+    font-family: Verdana;
+    font-size: 15px;
+}
+
+.ui-widget, .ui-widget .ui-widget{
+    font-family: Verdana!important;
+}
+
+.datatable {
+    text-align:center!important;
+    width: 80%;
+}
+
+.loginInput.ui-inputfield{
+    background: url(../images/input-user-left.png) no-repeat scroll 2px 2px!important;
+    text-align: left;
+    padding-left: 30px;
+}
+
+.passInput{
+    background: url(../images/input-pass-left.png) no-repeat scroll 2px 2px!important;
+    text-align: left;
+    padding-left: 30px;
+}
+
+.panelGridClass tr, .panelGridClass td{
+    border:none!important
+
+}
+
+.tags{
+    background-color: #004276;
+    color:white;
+    border-bottom: 1px solid #b3cee1;
+    border-right: 1px solid #b3cee1;
+    padding: 3px 4px 3px 4px;
+    margin: 2px 2px 2px 0;
+    text-decoration: none;
+    font-size: 90%;
+    font-weight:bold;
+    line-height: 1.4;
+    white-space: nowrap;
+    display: inline-block;
+}
+
+.tags a{
+    color:white;
+    text-decoration: none;
+}
+.box tr,.box td
+{
+    border:none!important;
+}
+
+.box{
+    width:700px!important;
+    border-collapse: separate!important;
+    border-spacing: 10px 30px!important;
+}
+
+.listaCats{
+    list-style-type: none!important;
+    margin: 0!important;
+    padding: 0!important;
+    line-height: 35px;
+}
+
+.ui-icon-extlink {
+    background-image: url(../images/icon_exit.png) !important;
+    background-position: center center !important;
+    width: 16px;
+    height: 16px;
+}
+
+.ui-icon-person {
+    background-image: url(../images/icon_perfil.png) !important;
+    background-position: center center !important;
+    width: 16px;
+    height: 16px;
+}
+
+.ui-icon-search {
+    background-image: url(../images/icon_consulta.png) !important;
+    background-position: center center !important;
+    width: 16px;
+    height: 16px;
+}
+
+
+/*.ui-icon-home{
+    background-image: url(../images/icon_administracion.png) !important;
+    background-position: center center !important;
+    width: 16px;
+    height: 16px;
+}*/
+
+.ui-icon-carga{
+    background-image: url(../images/icon_carga.png) !important;
+    background-position: center center !important;
+    width: 16px;
+    height: 16px;
+}
+
+.ui-icon-cargas{
+    background-image: url(../images/icon_cargas.png) !important;
+    background-position: center center !important;
+    width: 16px;
+    height: 16px;
+}
+
+.ui-icon-wrench{
+    background-image: url(../images/icon_wrench.png) !important;
+    background-position: center center !important;
+    width: 16px;
+    height: 16px;
+}
+
+.ui-width-modlabel{
+    display: block;
+    width: 160px;
+    float: left;
+}
+
+.ui-align-image{
+    float: left;
+}
+
+.ui-width-estandar{
+    width: 150px;
+}
+
+.ui-div-estandar{
+    margin:10px;
+    width: 30%;
+    text-align: left;
+}
+
+.ui-div-modificadoleft{
+    float: left;
+    display: block;
+    margin-top:10px;
+    width: 100%;
+}
+
+/*.ui-icon-guardar{
+    background-image: url("/BBMassVarAgregadas/javax.faces.resource/images/ui-bg_highlight-hard_100_eeeeee_1x100.png.xhtml?ln=primefaces-blitzer") repeat-x scroll 50% 50% #eeeeee;
+}*/
+
+.ui-icon-border{
+    border: 0;	
+}
+
+.top-aligned-columns td{
+    vertical-align: top;
+}
+
+.ui-log {
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.8);
+    height: 300px;
+    left: 50px;
+    position: fixed;
+    top: 50px;
+    width: 400px;
+    z-index: 3;
+}
+
+.tituloPagina {
+    text-align: right;
+    display: block;
+    font-size: large;
+    font-weight: bold;
+}
+
+

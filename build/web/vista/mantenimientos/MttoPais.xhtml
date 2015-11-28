@@ -1,0 +1,23 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:f="http://java.sun.com/jsf/core" 
+    template="../template.xhtml">
+    <ui:define name="contenido">
+        <p:spacer height="30px;"></p:spacer>
+        <h:outputLabel>Mantenimiento de Pais</h:outputLabel>
+        <h:form id="IDFrmPais">
+            <h:panelGrid columns="2">
+                <h:outputLabel value="ID Pais:"/>
+                <p:inputText value="#{paisMB.pais.paisId}" readonly="false"></p:inputText>
+                <h:outputLabel value="Código Pais:"/>
+                <p:inputText value="#{paisMB.pais.codigo}"></p:inputText>
+                <h:outputLabel value="Nombre:"/>
+                <p:inputText value="#{paisMB.pais.nombre}"></p:inputText>
+            </h:panelGrid>
+        </h:form>
+    </ui:define>
+</ui:composition>
+

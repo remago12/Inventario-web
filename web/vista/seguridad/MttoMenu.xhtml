@@ -1,0 +1,71 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:f="http://java.sun.com/jsf/core" 
+    template="../template.xhtml">
+    <ui:define name="contenido">
+        <p:tabView>
+            <p:tab title="Busquedas">
+                <h:form id="IDFrmBusMenu">
+                    <h:panelGrid columns="7" cellpadding="10" >
+                        <h:outputLabel value="Id Padre: "/>
+                        <p:inputMask value="#{personaMB.dui}" mask="99999999-9"/>
+                        <h:outputLabel value="Nombres: "/>
+                        <p:inputText value="#{personaMB.nombres}"></p:inputText>
+                        <h:outputLabel value="Apellidos: "/>
+                        <p:inputText value="#{personaMB.apellidos}"></p:inputText>
+                        <p:commandButton actionListener="#{personaMB.busqPersona()}" update="IDTblPersonas" icon="ui-icon-search" title="Buscar" />
+                    </h:panelGrid>
+
+                <p:dataTable id="IDTblPersonas" var="per" value="#{personaMB.personaLst}">
+                    <f:facet name="header">
+                        Resultado de Busqueda
+                    </f:facet>
+                    <p:column headerText="Id Persona">
+                        <h:outputText value="#{per.personaId}" />
+                    </p:column>
+                    <p:column headerText="Nombres">
+                        <h:outputText value="#{per.nombres}" />
+                    </p:column>
+                    <p:column headerText="Apellidos">
+                        <h:outputText value="#{per.apellidos}" />
+                    </p:column>
+                    <p:column headerText="Fecha Nacimiento">
+                        <h:outputText value="#{per.fechanac}">
+                            <f:convertDateTime locale="ES" dateStyle="short">
+                            </f:convertDateTime>
+                        </h:outputText>
+                    </p:column>
+                    <p:column headerText="Genero">
+                        <h:outputText value="#{per.genero}" />
+                    </p:column>
+                    <p:column style="width:32px;text-align: center">
+                         <p:commandButton update=":form:carDetail" oncomplete="PF('carDialog').show()" icon="ui-icon-search" title="View">
+                             <f:setPropertyActionListener value="#{doc}" target="#{personaMB.docSelect}" />
+                        </p:commandButton>
+                    </p:column>
+                </p:dataTable>
+                    </h:form>
+            </p:tab>
+            <p:tab title="Detalle">
+                <h:outputLabel>Mantenimiento de Persona</h:outputLabel>
+                <h:form id="IDFrmPersona">
+                    <h:panelGrid columns="4">
+                        <h:outputLabel value="ID Persona:"/>
+                        <p:inputText value="#{personaMB.persona.personaId}"></p:inputText>
+                        <h:outputLabel value="Nombres:"/>
+                        <p:inputText value="#{personaMB.persona.nombres}"></p:inputText>
+                        <h:outputLabel value="Apellidos:"/>
+                        <p:inputText value="#{personaMB.persona.apellidos}"></p:inputText>
+
+                    </h:panelGrid>
+                </h:form>
+            </p:tab>
+        </p:tabView>
+    </ui:define>
+
+</ui:composition>
+
+

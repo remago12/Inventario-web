@@ -1,0 +1,93 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <f:facet name="first"> 	
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=8" />
+	<ui:insert name="script" />
+	</f:facet> 
+	<title><h:outputText value="Gasolinera ISW2" /></title>
+	<ui:insert name="meta" />
+	<ui:insert name="hojasEstilo" />
+	<h:outputScript library="js" name="codigos.js"  />
+	<h:outputScript library="primefaces" name="jquery/jquery.js" />
+	<link type="text/css" rel="stylesheet" href="#{request.contextPath}/resources/css/estilos.css" />
+</h:head>
+<h:body >
+
+
+<p:layout fullPage="true">
+    <p:layoutUnit styleClass="header" position="north" size="100" resizable="false" closable="false" collapsible="false">
+        <!--<div id="logo">
+        <p:graphicImage url="/resources/images/logo-davivienda-hsbc.png" ></p:graphicImage>
+        </div>-->
+        <div id="date">
+            Bienvenido: #{userMB.usuarioLogin}
+            <br></br>
+            <script>
+                getTime();
+            </script>
+        </div>
+</p:layoutUnit>
+    
+    <p:layoutUnit style="width:90%" position="center">
+            <p:growl id="sysErrMsg" showSummary="true" showDetail="true"
+                    sticky="true" autoUpdate="false" globalOnly="true" />
+
+            <p:growl id="growMessage" showDetail="true" life="3500"
+                                    autoUpdate="false" globalOnly="true" />
+	 
+	    <p:growl id="messages"/>
+            <h:form id="formMenu">  
+                <p:growl id="messages"/>
+                <p:menubar id="menuBar" style="width: 100%; font-size:12px;padding:2px " model="#{userMB.menu}">
+                </p:menubar> 
+            </h:form>	    
+            <p:spacer height="25px"></p:spacer>   		
+            <ui:insert name="contenido">
+            </ui:insert>
+
+            <ui:insert name="dialogoModal">
+
+            </ui:insert>
+
+
+            <ui:insert name="monitor">
+                    <p:idleMonitor id="idMonitorSession" timeout="1800000"
+                            onidle="dlgMensajeSessionExp.show()" />
+                    <p:dialog header="Sesion finalizada" resizable="false"
+                            widgetVar="dlgMensajeSessionExp" width="300" height="120"
+                            modal="true" closable="false" appendTo="@(body)">
+                            <center>
+                                    <h:outputText value="Sesión finalizada por Inactividad" />
+                                    <h:form id="sessionForm">
+
+                                                    <h:graphicImage style="border:0px" value="/resources/images/login.png"
+                                                            width="80px" />
+
+                                    </h:form>
+                            </center>
+                    </p:dialog>
+            </ui:insert>   
+    </p:layoutUnit>    
+        
+    <p:layoutUnit styleClass="footer" position="south" size="50" resizable="false" closable="false" collapsible="false">
+       <ui:insert name="footer">
+       		Todos los derechos reservados &copy;  UFG 2015
+       </ui:insert>
+    </p:layoutUnit>
+	
+</p:layout>
+
+
+				
+				
+				
+	
+	
+</h:body>
+</html>

@@ -1,0 +1,149 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:f="http://java.sun.com/jsf/core" 
+    template="../template.xhtml">
+    <ui:define name="contenido">
+        <h:form id="IDFrmGeneral">
+            <p:tabView>
+                <p:tab title="Busquedas">
+                    <h:form id="IDFrmOrdCompra">
+                        <h:panelGrid columns="7" cellpadding="10" >
+                            <h:outputLabel value="DUI: "/>
+                            <p:inputMask value="#{personaMB.dui}" mask="99999999-9"/>
+                            <h:outputLabel value="Nombres: "/>
+                            <p:inputText value="#{personaMB.nombres}"></p:inputText>
+                            <h:outputLabel value="Apellidos: "/>
+                            <p:inputText value="#{personaMB.apellidos}"></p:inputText>
+                            <p:commandButton actionListener="#{personaMB.busqPersona()}" update="IDTblPersonas" icon="ui-icon-search" title="Buscar" />
+                        </h:panelGrid>
+
+                        <p:dataTable id="IDTblPersonas" var="per" value="#{personaMB.personaLst}">
+                            <f:facet name="header">
+                                Resultado de Busqueda
+                            </f:facet>
+                            <p:column headerText="Id Persona">
+                                <h:outputText value="#{per.personaId}" />
+                            </p:column>
+                            <p:column headerText="Nombres">
+                                <h:outputText value="#{per.nombres}" />
+                            </p:column>
+                            <p:column headerText="Apellidos">
+                                <h:outputText value="#{per.apellidos}" />
+                            </p:column>
+                            <p:column headerText="Fecha Nacimiento">
+                                <h:outputText value="#{per.fechanac}">
+                                    <f:convertDateTime type="date" timeZone="EST" locale="es" dateStyle="medium" >
+                                    </f:convertDateTime>
+                                </h:outputText>
+                            </p:column>
+                            <p:column headerText="Genero">
+                                <h:outputText value="#{per.genero}" />
+                            </p:column>
+                            <p:column style="width:32px;text-align: center">
+                                <p:commandButton icon="ui-icon-pencil"/>
+                            </p:column>
+                        </p:dataTable>
+                    </h:form>
+                </p:tab>
+                <p:tab title="Detalle">
+                    <h:outputLabel styleClass="tituloPagina">Mantenimiento de Persona</h:outputLabel>
+                    <p:menubar>
+                        <p:menuitem value="Nuevo" icon="ui-icon-plusthick" actionListener="#{personaMB.newPersona()}" update="IDFrmPersona"/>
+                        <p:menuitem value="Guardar" icon="ui-icon-disk" actionListener="#{personaMB.guardarPer()}" update="IDFrmPersona"/>
+                    </p:menubar>
+                    <p:spacer/>
+                    <h:form id="IDFrmPersona">    
+                        <h:panelGrid columns="6" cellspacing="20">
+                            <h:outputLabel value="ID Persona:"/>
+                            <p:inputText value="#{personaMB.persona.personaId}" readonly="true"></p:inputText>
+                            <h:outputLabel value="Nombres:"/>
+                            <p:inputText value="#{personaMB.persona.nombres}"></p:inputText>
+                            <h:outputLabel value="Apellidos:"/>
+                            <p:inputText value="#{personaMB.persona.apellidos}"></p:inputText>
+                            <h:outputLabel value="Fecha Nacimiento:"/>
+                            <p:calendar value="#{personaMB.persona.fechanac}" showOn="button" 
+                                        maxdate="#{personaMB.fechaHoy}" pattern="dd-MM-yyyy" mask="true"
+                                        locale="es" navigator="true">
+                            </p:calendar>
+                            <h:outputLabel value="Tipo Persona:"/>
+                            <p:selectOneMenu value="#{personaMB.persona.tipoper}" style="width:125px">
+                                <f:selectItem itemLabel="Natural" itemValue="0" />
+                                <f:selectItem itemLabel="Jurídica" itemValue="1" />
+                            </p:selectOneMenu>
+                            <h:outputLabel value="Género"/>
+                            <p:selectOneMenu value="#{personaMB.persona.tipoper}" style="width:125px">
+                                <f:selectItem itemLabel="Masculino" itemValue="M" />
+                                <f:selectItem itemLabel="Femenino" itemValue="F" />
+                            </p:selectOneMenu>            
+                        </h:panelGrid>
+                    </h:form>        
+                        <h:panelGrid columns="2">
+                            <h:panelGrid>
+                                <!--Lista de Contactos para comunicarse con la persona-->
+                                <p:dataTable id="IDTblContacto" var="con" value="#{personaMB.persona.contactoList}">
+                                    <f:facet name="header">
+                                        Listado de Medios para Contactar a la Persona
+                                    </f:facet>
+                                    <p:column headerText="Id Contacto">
+                                        <p:cellEditor>
+                                            <f:facet name="output"><h:outputText value="#{con.contactoId}" /></f:facet>
+                                            <f:facet name="input"><p:inputText value="#{con.contactoId}" readonly="true" style="width:100%"/></f:facet>
+                                        </p:cellEditor>
+                                    </p:column>
+                                    <p:column headerText="Tipo">
+                                        <p:cellEditor>
+                                            <f:facet name="output"><h:outputText value="#{(con.tipo == 'E')? 'Email': (con.tipo == 'K')?'Teléfono Casa':'Teléfono Celular'}" /></f:facet>
+                                            <f:facet name="input">
+                                                <p:selectOneMenu value="#{con.tipo}" style="width:125px">
+                                                    <f:selectItem itemLabel="Email" itemValue="E" />
+                                                    <f:selectItem itemLabel="Teléfono Casa" itemValue="K" />
+                                                    <f:selectItem itemLabel="Teléfono Celular" itemValue="C" />
+                                                </p:selectOneMenu>
+                                            </f:facet>
+                                        </p:cellEditor>
+                                    </p:column>
+                                    <p:column headerText="Valor">
+                                        <p:cellEditor>
+                                            <f:facet name="output"><h:outputText value="#{con.valor}" /></f:facet>
+                                            <f:facet name="input"><p:inputText value="#{con.valor}" style="width:100%"/></f:facet>
+                                        </p:cellEditor>
+                                    </p:column>
+                                </p:dataTable>
+                            </h:panelGrid>
+                            <h:panelGrid>
+                                <!--Lista de Documentos de identificación.-->
+                                <p:dataTable id="IDTblDocumentos" var="doc" value="#{personaMB.persona.documentoList}">
+                                    <f:facet name="header">
+                                        Listado de Documentos de la Persona
+                                    </f:facet>
+                                    <p:column headerText="Id Documento">
+                                        <p:cellEditor>
+                                            <f:facet name="output"><h:outputText value="#{doc.documentoId}" /></f:facet>
+                                            <f:facet name="input"><p:inputText value="#{doc.documentoId}" readonly="true" style="width:100%"/></f:facet>
+                                        </p:cellEditor>
+                                    </p:column>
+                                    <p:column headerText="Tipo Documento">
+                                        <p:cellEditor>
+                                            <f:facet name="output"><h:outputText value="#{doc.doctipoId.nombre}" /></f:facet>
+                                            <f:facet name="input"><h:outputText value="#{doc.doctipoId.nombre}" /></f:facet>
+                                        </p:cellEditor>
+                                    </p:column>
+                                    <p:column headerText="Valor">
+                                        <p:cellEditor>
+                                            <f:facet name="output"><h:outputText value="#{doc.numero}" /></f:facet>
+                                            <f:facet name="input"><p:inputText value="#{doc.numero}" style="width:100%"/></f:facet>
+                                        </p:cellEditor>
+                                    </p:column>
+                                </p:dataTable>
+                            </h:panelGrid>
+                        </h:panelGrid>
+                    
+                </p:tab>
+            </p:tabView>
+        <!--</h:form>-->
+    </ui:define>
+
+</ui:composition>

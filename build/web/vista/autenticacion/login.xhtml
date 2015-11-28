@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core" template="template.xhtml">
+	
+	<ui:define name="contenido">
+	</ui:define>
+	<ui:define name="dialogoModal">
+            <p:dialog modal="true" draggable="false" header="Bienvenido, Ingrese sus Credenciales" style="text-align:center" widgetVar="dialogLogin" closable="false" width="400" height="150" visible="true" appendTo="@(body)">
+                <h:form id="formLogin">
+                    <f:event listener="#{userMB.limpiarVarLogin()}" type="preRenderComponent"></f:event>
+                    
+                    <p:panelGrid styleClass="panelGridClass">
+                            <p:row>
+                                <p:column><h:outputText value="Login" /></p:column>
+                                <p:column><p:inputText required="true" requiredMessage="Usuario Requerido" value="#{userMB.usuarioLogin}" styleClass="loginInput" id="login"></p:inputText></p:column>
+                                <p:column><p:message for="login" display="icon"></p:message> </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column><h:outputText value="Password" /></p:column>
+                                <p:column><p:password required="true" requiredMessage="Password Requerido" value="#{userMB.passwordLogin}" styleClass="passInput" id="password"></p:password></p:column>
+                                <p:column><p:message for="password" display="icon"></p:message> </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column colspan="3" style="text-align:center">
+                                    <p:commandButton actionListener="#{userMB.autenticar()}" value="Login" update=":formLogin"></p:commandButton>
+                                </p:column>
+                            </p:row>
+                    </p:panelGrid>
+                   
+                </h:form>
+            </p:dialog>
+	</ui:define>
+
+</ui:composition>

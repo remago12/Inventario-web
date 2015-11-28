@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <f:facet name="first"> 	
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=8" />
+	<ui:insert name="script" />
+	</f:facet> 
+	<title><h:outputText value="Gasolinera ISW2" /></title>
+	<ui:insert name="meta" />
+	<ui:insert name="hojasEstilo" />
+	<h:outputScript library="js" name="codigos.js"/>
+	<link type="text/css" rel="stylesheet" href="#{request.contextPath}/resources/css/estilos.css" />
+</h:head>
+<h:body >
+    <p:layout fullPage="true">
+        <!-- Layout que sirve para cargar encabezado de las paginas -->
+        <p:layoutUnit styleClass="header" position="north" size="100" resizable="false" closable="false" collapsible="false">
+            <!--<div id="logo">
+                <p:graphicImage url="./images/logo-isw.png" ></p:graphicImage>
+            </div>-->
+            <div id="date">
+                Bienvenido: #{userMB.usuarioLogin}
+                <br></br>
+                <script>
+                    getTime();
+                </script>
+            </div>
+        </p:layoutUnit>
+        <!-- Layout que sirve para cargar el cuerpo de la página -->
+        <p:layoutUnit style="width:90%" position="center">
+            <p:growl id="sysErrMsg" showSummary="true" showDetail="true"
+                    sticky="true" autoUpdate="false" globalOnly="true" />
+
+            <p:growl id="growMessage" showDetail="true" life="3500"
+                autoUpdate="false" globalOnly="true" />		
+            <ui:insert name="contenido">
+
+            </ui:insert>
+            <ui:insert name="dialogoModal">
+
+            </ui:insert>
+        </p:layoutUnit>
+        <!-- Layout que sirve para cargar el pie de pagina -->   
+        <p:layoutUnit styleClass="footer" position="south" size="50" resizable="false" closable="false" collapsible="false">
+           <ui:insert name="footer">
+                    Todos los derechos reservados &copy;  UFG 2015
+           </ui:insert>
+        </p:layoutUnit>
+    </p:layout>
+</h:body>
+</html>

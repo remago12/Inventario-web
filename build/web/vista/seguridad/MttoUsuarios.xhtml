@@ -1,0 +1,139 @@
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:f="http://java.sun.com/jsf/core" 
+    template="../template.xhtml">
+    <ui:define name="contenido">
+
+    <p:spacer height="75px;"></p:spacer>
+    <br/>
+    <h:form id="formAdminUsuarios">
+    <center>
+    <p:dataTable style="width:85%" id="idDataTableAsignarMenu" widgetVar="wvDataTableAsignarMenu"
+        var="usuario" value="#{adminUsuarioMB.usuarios}" rendered="#{adminUsuarioMB.usuarios.size()>0}" >
+     <f:facet name="header">
+        <p:column>
+            <h:panelGrid columns="2">
+                <h:outputText id="IDOutTxt" value="Mantenimiento de Usuarios" />
+                <p:commandButton id="IDCmdBtnNuevaTabXml" actionListener="#{adminUsuarioMB.crearNuevoUsuario}" icon="ui-icon-plusthick" style="float:right" title="Nuevo"/>
+            </h:panelGrid>							
+        </p:column>
+        </f:facet>						
+        <p:column headerText="Usuario" filterBy="#{usuario.usuario}" filterMatchMode="contains">
+            <h:outputText value="#{usuario.usuario}" />
+        </p:column>
+
+        <p:column headerText="Nombre" filterBy="#{usuario.nombreCompleto}" filterMatchMode="contains">
+            <h:outputText value="#{usuario.nombreCompleto}" />
+        </p:column>
+
+
+        <p:column headerText="Estado" filterBy="#{usuario.estado}"  filterMatchMode="contains">
+            <h:outputText value="#{usuario.estado.equals('A')?'Activo':'Inactivo'}" />
+        </p:column>
+
+        <p:column headerText="Opciones">
+            <div style="float:left">
+                <p:commandLink styleClass="ui-icon ui-icon-pencil"
+                        title="editar Usuario" 
+                        value="editar"
+                        actionListener="#{adminUsuarioMB.actualizar(usuario)}"
+                        />
+            </div>
+            <div style="float:left">
+                <p:commandLink styleClass="ui-icon ui-icon-gear"
+                        title="Asignar Permisos" 
+                        actionListener="#{adminUsuarioMB.cargarListadoOpciones(usuario)}"
+                    rendered="#{usuario.estado.matches('A')}" />	
+            </div>
+        </p:column>	
+
+            </p:dataTable>	
+            </center>		
+
+    </h:form>
+
+</ui:define>
+<ui:define name="dialogoModal">
+
+    <p:dialog header="Ver opciones" widgetVar="opcionesUsuarioDialog"
+    resizable="false" width="465" height="350" appendTo="@(body)"
+    modal="true">
+    <f:facet name="header">
+         <h:panelGrid columns="1" id="idHeaderPermisosUsuario">
+            <h:outputText value="Ver opciones usuario #{adminUsuarioMB.usuario.usuario}" />
+        </h:panelGrid>
+    </f:facet>
+    <p:ajax event="close" listener="#{adminUsuarioMB.closeDialogOpciones}"/>
+    <h:form id="formOpciones">
+
+        <center>
+                      <h3>Opciones de Usuario</h3>
+              </center>
+              <p:pickList id="pickList"
+                      rendered="#{not empty adminUsuarioMB.usuario}"
+                  value="#{adminUsuarioMB.listadoOpcionesUsuario}"
+                      var="opcionesDisponibles" itemValue="#{opcionesDisponibles}"
+                      itemLabel="#{opcionesDisponibles.nombreMenu}"
+                      converter="opcionesMenuConverter">
+                      <f:facet name="sourceCaption">Disponibles</f:facet>
+                      <f:facet name="targetCaption">Asignadas</f:facet>
+              </p:pickList>
+              <p:commandButton value="Guardar"
+                      actionListener="#{adminUsuarioMB.guardarNuevasOpcionesAsignadas}"
+                      oncomplete="opcionesUsuarioDialog.hide();"/>
+
+    </h:form>
+    </p:dialog>
+
+    <p:dialog  widgetVar="gestionUsuarioDialog"
+            resizable="false" width="465" height="250" appendTo="@(body)"
+            modal="true">
+            <f:facet name="header">
+               <h:panelGrid columns="1" id="idHeaderGestionUsuario">
+                               <h:outputText value="Actualizar usuario #{adminUsuarioMB.usuario.usuario}"  rendered="#{adminUsuarioMB.actualizar}" />
+                               <h:outputText value="Crear usuario"  rendered="#{!adminUsuarioMB.actualizar}" />
+               </h:panelGrid>
+            </f:facet>
+            <p:ajax event="close" listener="#{adminUsuarioMB.closeDialogGU}"/>
+                <h:form id="formGestionUsuario">
+                    <center>
+                        <p:panelGrid id="panelGridGU" styleClass="panelGridClass" style="border:0px">
+                            <p:row>
+                                <p:column>Usuario: </p:column>
+                                <p:column colspan="2">
+                                    <h:outputText rendered="#{adminUsuarioMB.actualizar}" value="#{adminUsuarioMB.usuario.usuario}" />
+                                    <p:inputText required="true" requiredMessage="Usuario Requerido" rendered="#{!adminUsuarioMB.actualizar}" value="#{adminUsuarioMB.usuario.usuario}" id="usuario"></p:inputText>
+                                    <p:message for="usuario" display="icon"></p:message>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column>Nombres: </p:column>
+                                <p:column><p:inputText value="#{adminUsuarioMB.usuario.nombres}" id="nombre" required="true" requiredMessage="Ingrese sus nombres"></p:inputText> </p:column>
+                                <p:column><p:message for="nombre" display="icon"></p:message> </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column>Apellidos: </p:column>
+                                <p:column><p:inputText value="#{adminUsuarioMB.usuario.apellidos}" id="apellido" required="true" requiredMessage="Ingrese apellidos"></p:inputText> </p:column>
+                                <p:column><p:message for="apellido" display="icon"></p:message> </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column>Estado: </p:column>
+                                <p:column><p:selectOneMenu value="#{adminUsuarioMB.usuario.estado}"   style="width:188px">
+                                    <f:selectItems value="#{adminUsuarioMB.estados}" var = "e" itemLabel="#{e.descripcion}" itemValue="#{e.estado}"  />  
+                                    </p:selectOneMenu>
+                                 <p:column> </p:column>
+                                </p:column>
+                            </p:row>
+                        </p:panelGrid>
+                            <p:spacer width="60" height="40"></p:spacer>
+                                <p:commandButton value="Guardar" rendered="#{!adminUsuarioMB.actualizar}" actionListener="#{adminUsuarioMB.guardarUsuario}" update=":formGestionUsuario"/>
+                                <p:commandButton value="Actualizar" rendered="#{adminUsuarioMB.actualizar}" actionListener="#{adminUsuarioMB.actualizarUsuario}" update=":formGestionUsuario"/>
+
+                        </center>
+
+                </h:form>
+    </p:dialog>
+    </ui:define>
+</ui:composition>
+

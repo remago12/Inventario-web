@@ -1,0 +1,57 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:f="http://java.sun.com/jsf/core" 
+    template="../template.xhtml">
+    <ui:define name="contenido">
+        <h:form>
+            <p:tabView>
+                <p:tab title="Busquedas">
+                    <h:form id="IDFrmBusGiro">
+                        <h:panelGrid columns="5" cellpadding="10" >
+                            <h:outputLabel value="ID Giro: "/>
+                            <p:inputText value="#{giroMB.idGiro}" />
+                            <h:outputLabel value="Nombre: "/>
+                            <p:inputText value="#{giroMB.nombre}"></p:inputText>
+                            <p:commandButton actionListener="#{giroMB.buscarGiros()}" update="IDTblGiro" icon="ui-icon-search" title="Buscar" />
+                        </h:panelGrid>
+
+                        <p:dataTable id="IDTblGiro" var="giro" value="#{giroMB.giroLst}">
+                            <f:facet name="header">
+                                Resultado de Busqueda
+                            </f:facet>
+                            <p:column headerText="ID Giro">
+                                <h:outputText value="#{giro.giroId}" />
+                            </p:column>
+                            <p:column headerText="Nombre">
+                                <h:outputText value="#{giro.nombre}" />
+                            </p:column>
+                            <p:column headerText="Descripción">
+                                <h:outputText value="#{giro.descripcion}" />
+                            </p:column>
+                        </p:dataTable>
+                    </h:form>
+                </p:tab>
+                <p:tab title="Detalle">
+                    <h:outputLabel>Mantenimiento de Giro</h:outputLabel>
+                    <h:form id="IDFrmPersona">
+                        <h:panelGrid columns="4">
+                            <h:outputLabel value="ID Giro"/>
+                            <p:inputText value="#{giroMB.giro.giroId}"></p:inputText>
+                            <h:outputLabel value="Nombre:"/>
+                            <p:inputText value="#{giroMB.giro.nombre}"></p:inputText>
+                            <h:outputLabel value="Apellidos:"/>
+                            <p:inputText value="#{personaMB.persona.apellidos}"></p:inputText>
+
+                        </h:panelGrid>
+                    </h:form>
+                </p:tab>
+            </p:tabView>
+        </h:form>
+    </ui:define>
+
+</ui:composition>
+
+
