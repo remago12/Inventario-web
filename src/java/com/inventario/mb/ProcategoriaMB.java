@@ -6,7 +6,7 @@
 package com.inventario.mb;
 
 import com.inventario.entidades.Cargo;
-
+import com.inventario.entidades.Productocategoria;
 import com.inventario.general.BusquedaGenLocal;
 import com.inventario.general.ProcesoGenLocal;
 import com.inventario.utils.JsfUtil;
@@ -17,6 +17,7 @@ import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.model.SelectItem;
 
 /**
  *
@@ -24,54 +25,43 @@ import javax.faces.bean.SessionScoped;
  */
 @ManagedBean
 @SessionScoped
-public class CargoMB implements Serializable{
+public class ProcategoriaMB implements Serializable{
+    
     @EJB
     private BusquedaGenLocal busqGen;
     @EJB
-    private ProcesoGenLocal genLoc;
-    /*  
-    Declaracion de las Variables
-    */
+    private ProcesoGenLocal  genLoc;    
     
-    Cargo cargo = null;
-    List<Cargo> cargoLst;
+    Productocategoria proCat=null;
+    List<Productocategoria> proList;
+    
+    String prodcatId="";
+    String nombre="";
+    String descripcion="";
     int activeInt;
-    String banG;
+    String banG ;
     
-    // variables de busqueda
-    
-    
-    String idCargo = "";
-    String nomCargo="";
-    
-    /**
-     * Creates a new instance of CargoMB
-     */
-    
-    public CargoMB() {
-        cargo = new Cargo();
-        cargo.setCargoId(Long.getLong("0"));
-        cargoLst = new ArrayList<>();
-        
+    public ProcategoriaMB(){
+         proCat= new Productocategoria();
+         proCat.setProdcatId(Long.getLong("0"));
+         proList= new ArrayList<>();
+         buscarCategoria();
     }
     
-    /**
-     * metodo generador de busqueda en entidad cargo
-     * @return Los campos segun la busqueda por id o nombre de cargo
-     */
-    public void buscarCargo(){
+    public void buscarCategoria(){
         System.out.println("Aqui estamos");
-        cargoLst = new ArrayList<>();
+        proList = new ArrayList<>();
         System.out.println("Aqui estamos2");
         try {
             Long idvar = Long.valueOf("0");
-            if (idCargo != null && !idCargo.isEmpty()) {
-                 idvar=Long.valueOf(idCargo);
+            if (prodcatId != null && !prodcatId.isEmpty()) {
+                 idvar=Long.valueOf(prodcatId);
             }
             System.out.println("Llega aqui"+idvar);
-            cargoLst= busqGen.busqCargo(idvar,nomCargo);
-            System.out.println("Regresa valores:"+ cargoLst.size());
-            if (cargoLst == null || cargoLst.isEmpty()) {
+            proList= busqGen.buscarProcat(idvar,nombre);
+                    System.out.println(""+proList);
+            System.out.println("Regresa valores:"+ proList.size());
+            if (proList == null || proList.isEmpty()) {
                 JsfUtil.showFacesMsg(null,"Nos se obtubieron resultados","Informe de Busqueda"
                             ,FacesMessage.SEVERITY_INFO);
             }
@@ -80,23 +70,24 @@ public class CargoMB implements Serializable{
         
         }
         JsfUtil.updateComponent("growMessage");
+        
     }
     
-    public void selectCargo(Cargo cSelect){
-          cargo= cSelect;
-          activeInt=1;
-          banG="M";
-          JsfUtil.updateComponent("IDFRMCargob");
-    }  
+    public void selectProcat(Productocategoria proSelec){
+        proCat = proSelec;
+        activeInt=1;
+        banG="M";
+        
+    }
     
-    public void newCargo(){
+       public void newProCat(){
         System.out.println("Ingresa a crear un nuevo Cargo");
-        cargo = new Cargo();
+         proCat= new Productocategoria();
         banG="G";
         try {
             Long idCorrelativo;
-            idCorrelativo = busqGen.obtenerCorr(Cargo.class, "cargoId");
-            cargo.setCargoId(idCorrelativo);
+            idCorrelativo = busqGen.obtenerCorr(Productocategoria.class, "prodcatId");
+            proCat.setProdcatId(idCorrelativo);
             JsfUtil.showFacesMsg(null, "Ingrese los datos solicitados", "Informe:", 
                     FacesMessage.SEVERITY_INFO);
         } catch (Exception e) {
@@ -106,52 +97,60 @@ public class CargoMB implements Serializable{
         }
         JsfUtil.updateComponent("growMessage");
     }
-      
-      public void saveCargo(){
+       
+       
+    public void saveProCat(){
           try {
-              String guardar = genLoc.guardarCargo(getCargo(), banG);
+              String guardar = genLoc.proCateg(getProCat(), banG);
               JsfUtil.showFacesMsg(null,guardar,"El Cargo",FacesMessage.SEVERITY_INFO);
           } catch (Exception e) {
               JsfUtil.showFacesMsg(null,e.getMessage(), "Procesos",FacesMessage.SEVERITY_FATAL);
           }
           JsfUtil.updateComponent("growMessage");
           activeInt=0;
-}
+    }   
     
-/*  
     
-    --------------Getter & Setter----------------------------
-*/
-    public Cargo getCargo() {
-        return cargo;
+    
+
+    public List<Productocategoria> getProList() {
+        return proList;
     }
 
-    public void setCargo(Cargo cargo) {
-        this.cargo = cargo;
+    public void setProList(List<Productocategoria> proList) {
+        this.proList = proList;
     }
 
-    public String getIdCargo() {
-        return idCargo;
+    public String getProdcatId() {
+        return prodcatId;
     }
 
-    public void setIdCargo(String idCargo) {
-        this.idCargo = idCargo;
+    public void setProdcatId(String prodcatId) {
+        this.prodcatId = prodcatId;
     }
 
-    public String getNomCargo() {
-        return nomCargo;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setNomCargo(String nomCargo) {
-        this.nomCargo = nomCargo;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
-    public List<Cargo> getCargoLst() {
-        return cargoLst;
+    public String getDescripcion() {
+        return descripcion;
     }
 
-    public void setCargoLst(List<Cargo> cargoLst) {
-        this.cargoLst = cargoLst;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public Productocategoria getProCat() {
+        return proCat;
+    }
+
+    public void setProCat(Productocategoria proCat) {
+        this.proCat = proCat;
     }
 
     public int getActiveInt() {
@@ -161,10 +160,6 @@ public class CargoMB implements Serializable{
     public void setActiveInt(int activeInt) {
         this.activeInt = activeInt;
     }
-    
-    
-    
-    
     
     
 }

@@ -4,8 +4,8 @@
     xmlns:f="http://java.sun.com/jsf/core" 
     template="../template.xhtml">
     <ui:define name="contenido">
-        <h:form id="IDFrmCargo">
-            <p:tabView>
+        
+        <p:tabView activeIndex="#{cargoMB.activeInt}" id="IDTvw">
                 <p:tab title="Busquedas">
                     <h:form id="IDFrmBusq">
                         <h:panelGrid columns="7">
@@ -29,17 +29,21 @@
                             <p:column headerText="Descripcion">
                                 <h:outputText value="#{car.descripcion}"/>
                             </p:column>
+                            <p:column style="width:32px;text-align: center">
+                                <p:commandButton icon="ui-icon-pencil" actionListener="#{cargoMB.selectCargo(car)}" update=":IDTvw"/>
+                            </p:column>
                         </p:dataTable>
                     </h:form>   
                 </p:tab>
                 
                 <p:tab title="Detalle">
+                <h:form id="IDFRMCargob">  
                 <p:menubar>
-                    <p:menuitem value="Nuevo" url="" icon="ui-icon-plusthick" />
+                    <p:menuitem value="Nuevo"  icon="ui-icon-plusthick" actionListener="#{cargoMB.newCargo()}" update="IDFRMCargob" />
                     
-                    <p:menuitem value="Guardar" url="" icon="ui-icon-disk" />
+                    <p:menuitem value="Guardar"  icon="ui-icon-disk" actionListener="#{cargoMB.saveCargo()}" update=":IDTvw" />
                 </p:menubar>
-                    <h:form id="IDFRMCargob">  
+                    
                    <h:panelGrid columns="2">
                         <h:outputLabel value="Codigo:"/>
                         <p:inputText value="#{cargoMB.cargo.cargoId}" />
@@ -51,7 +55,7 @@
                 </h:form>    
                 </p:tab>
             </p:tabView>
-        </h:form>    
+            
     </ui:define>
 </ui:composition>
 

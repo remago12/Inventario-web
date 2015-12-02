@@ -9,5 +9,12 @@
             <file>file:/C:/Users/Rene%20Gomez/Documents/NetBeansProjects/Inventario-web/src/java/com/inventario/mb/PersonaMB.java</file>
             <file>file:/C:/Users/Rene%20Gomez/Documents/NetBeansProjects/Inventario-web/web/WEB-INF/web.xml</file>
         </group>
+        <group name="ISW">
+            <file>file:/C:/Users/Joseee/Documents/NetBeansProjects/ISW/Inventario-web/web/vista/mantenimientos/MttoProCat.xhtml</file>
+            <file>file:/C:/Users/Joseee/Documents/NetBeansProjects/ISW/Inventario-web/src/java/com/inventario/mb/ProcategoriaMB.java</file>
+            <file>file:/C:/Users/Joseee/Documents/NetBeansProjects/ISW/Inventario-web/web/vista/mantenimientos/MttouniMedida.xhtml</file>
+            <file>file:/C:/Users/Joseee/Documents/NetBeansProjects/ISW/Inventario-web/src/java/com/inventario/mb/UnidadMedidaMB.java</file>
+            <file>file:/C:/Users/Joseee/Documents/NetBeansProjects/ISW/Inventario-web/src/java/com/inventario/mb/CargoMB.java</file>
+        </group>
     </open-files>
 </project-private>

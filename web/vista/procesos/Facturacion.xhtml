@@ -1,0 +1,104 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:f="http://java.sun.com/jsf/core" 
+    template="../template.xhtml">
+    <ui:define name="contenido">
+        <p:tabView>
+            <p:tab title="Detalle">
+                
+                <h:form id="IDFRMProd">
+                    <p:menubar>
+                    <p:menuitem value="Nuevo"  icon="ui-icon-plusthick" actionListener="#{uni.newCargo()}" update="IDFRMProd" />
+                    
+                    <p:menuitem value="Guardar"  icon="ui-icon-disk" actionListener="#{uniMB.saveCargo()}" />
+                    </p:menubar>
+                   <h:panelGrid columns="7">
+                        <h:outputLabel value="Id Factura:"/>
+                        <p:inputText value="#{proMB}" />
+                        <h:outputLabel value="Numero:"/>
+                        <p:inputText value="#{proMB}" />
+                        <p:outputLabel for="mask1" value="Fecha:"/>
+                        <p:calendar id="mask1" value="#{calendarView.date9}" pattern="dd-MM-yyyy" mask="true"/>
+                        
+                        <p:selectOneRadio id="console4" value="Estado">
+                            <f:selectItem itemLabel="Activo" itemValue="Xbox One" />
+                            <f:selectItem itemLabel="Inactivo" itemValue="PS4" />
+                        </p:selectOneRadio>
+                        <p:outputLabel for="console" value="Unidad de Medida:"/>
+                        <p:selectOneMenu id="console" value="#{selectOneMenuView.console}" style="width:125px">
+                            <f:selectItem itemLabel="Select One" itemValue="" />
+                            <f:selectItem itemLabel="Xbox One" itemValue="Xbox One" />
+                            <f:selectItem itemLabel="PS4" itemValue="PS4" />
+                            <f:selectItem itemLabel="Wii U" itemValue="Wii U" />
+                        </p:selectOneMenu>
+                         <p:outputLabel for="mask" value="Fecha:"/>
+                        <p:calendar id="mask" value="#{calendarView.date9}" pattern="dd-MM-yyyy" mask="true"/>
+                        <p:outputLabel for="console2" value="Categoria de Producto:"/>
+                        <p:selectOneMenu id="console2" value="#{selectOneMenuView.console}" style="width:125px">
+                            <f:selectItem itemLabel="Select One" itemValue="" />
+                            <f:selectItem itemLabel="Xbox One" itemValue="Xbox One" />
+                            <f:selectItem itemLabel="PS4" itemValue="PS4" />
+                            <f:selectItem itemLabel="Wii U" itemValue="Wii U" />
+                        </p:selectOneMenu>
+                        <p:outputLabel for="console3" value="Categoria de Producto:"/>
+                        <p:selectOneMenu id="console3" value="" style="width:125px">
+                            <f:selectItem itemLabel="Select One" itemValue="" />
+                            <f:selectItem itemLabel="Xbox One" itemValue="Xbox One" />
+                            <f:selectItem itemLabel="PS4" itemValue="PS4" />
+                            <f:selectItem itemLabel="Wii U" itemValue="Wii U" />
+                        </p:selectOneMenu>
+                    </h:panelGrid>
+                </h:form>    
+            </p:tab>
+            <p:tab title="Busquedas">
+                <h:form id="IDFrmBusq">
+                        <h:panelGrid columns="7">
+                            <h:outputLabel value="Id de Factura:"/>
+                            <p:inputText value="#{prodMB}" />
+                            <h:outputLabel value="Nombre:"/>
+                            <p:inputText value="#{prodMB}"/>
+                            <p:commandButton actionListener="#{uniMeMB.buscarProd()}" icon="ui-icon-search" update="IDTableCatp"></p:commandButton>
+                       </h:panelGrid>
+                    
+                       <p:dataTable id="IDTableCatp" var="pro" value="#{prodMB}"> 
+                            <f:facet name="header">
+                                Resultado de la Busqueda
+                            </f:facet>
+                            <p:column headerText="ID:">
+                                <h:outputText value="#{pro}"/>
+                            </p:column>
+                            <p:column headerText="Nombre:">
+                                <h:outputText value="#{pro}"/>
+                            </p:column>
+                            
+                            <p:column headerText="Descripcion:">
+                                <h:outputText value="#{pro}"/>
+                            </p:column>
+                            <p:column headerText="Cantidad:">
+                                <h:outputText value="#{pro}"/>
+                            </p:column>
+                        </p:dataTable> 
+                  </h:form>
+            </p:tab>
+            
+            
+            
+        </p:tabView>
+            
+        
+        
+        
+        
+    </ui:define>    
+    
+    
+    
+    
+    
+    
+    
+</ui:composition>
+

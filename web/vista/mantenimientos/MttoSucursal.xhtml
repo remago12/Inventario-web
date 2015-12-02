@@ -1,0 +1,60 @@
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:f="http://java.sun.com/jsf/core" 
+    template="../template.xhtml">
+    <ui:define name="contenido">
+        
+        <p:tabView activeIndex="#{cargoMB.activeInt}" id="IDTvw">
+                <p:tab title="Busquedas">
+                    <h:form id="IDFrmBusq">
+                        <h:panelGrid columns="7">
+                            <h:outputLabel value="Codigo:"/>
+                            <p:inputText value="#{cargoMB.idCargo}" />
+                            <h:outputLabel value="Nombre"/>
+                            <p:inputText value="#{cargoMB.nomCargo}"/>
+                            <p:commandButton actionListener="#{cargoMB.buscarCargo()}" icon="ui-icon-search" update="IDTableCargo"></p:commandButton>
+                       </h:panelGrid>
+                             
+                        <p:dataTable id="IDTableCargo" var="car" value="#{cargoMB.cargoLst}"> 
+                            <f:facet name="header">
+                                Resultado de la Busqueda
+                            </f:facet>
+                            <p:column headerText="ID">
+                                <h:outputText value="#{car.cargoId}"/>
+                            </p:column>
+                            <p:column headerText="Nombre">
+                                <h:outputText value="#{car.nombre}"/>
+                            </p:column>
+                            <p:column headerText="Descripcion">
+                                <h:outputText value="#{car.descripcion}"/>
+                            </p:column>
+                            <p:column style="width:32px;text-align: center">
+                                <p:commandButton icon="ui-icon-pencil" actionListener="#{cargoMB.selectCargo(car)}" update=":IDTvw"/>
+                            </p:column>
+                        </p:dataTable>
+                    </h:form>   
+                </p:tab>
+                
+                <p:tab title="Detalle">
+                <h:form id="IDFRMCargob">  
+                <p:menubar>
+                    <p:menuitem value="Nuevo"  icon="ui-icon-plusthick" actionListener="#{cargoMB.newCargo()}" update="IDFRMCargob" />
+                    
+                    <p:menuitem value="Guardar"  icon="ui-icon-disk" actionListener="#{cargoMB.saveCargo()}" update=":IDTvw" />
+                </p:menubar>
+                    
+                   <h:panelGrid columns="2">
+                        <h:outputLabel value="Codigo:"/>
+                        <p:inputText value="#{cargoMB.cargo.cargoId}" />
+                        <h:outputLabel value="Nombre"/>
+                        <p:inputText value="#{cargoMB.cargo.nombre}"/>
+                        <h:outputLabel value="Descripcion:"/>
+                        <p:inputText value="#{cargoMB.cargo.descripcion}"/>
+                    </h:panelGrid>
+                </h:form>    
+                </p:tab>
+            </p:tabView>
+            
+    </ui:define>
+</ui:composition>

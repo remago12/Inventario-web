@@ -1,0 +1,65 @@
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:f="http://java.sun.com/jsf/core" 
+    template="../template.xhtml">
+    <ui:define name="contenido">
+        
+        <p:tabView activeIndex="#{unidadMedidaMB.activeInt}" id="IDTvw">
+                <p:tab title="Busquedas">
+                    <h:form id="IDFrmBusq">
+                        <h:panelGrid columns="7">
+                            <h:outputLabel value="Id de Unidad:"/>
+                            <p:inputText value="#{unidadMedidaMB.unidadId}" />
+                            <h:outputLabel value="Nombre"/>
+                            <p:inputText value="#{unidadMedidaMB.nombre}"/>
+                            <p:commandButton actionListener="#{unidadMedidaMB.buscarUnidad()}" icon="ui-icon-search" update="IDTableM"></p:commandButton>
+                       </h:panelGrid>
+                             
+                        <p:dataTable id="IDTableM" var="uni" value="#{unidadMedidaMB.lstMe}"> 
+                            <f:facet name="header">
+                                Resultado de la Busqueda
+                            </f:facet>
+                            <p:column headerText="ID">
+                                <h:outputText value="#{uni.unidadId}"/>
+                            </p:column>
+                            <p:column headerText="Nombre">
+                                <h:outputText value="#{uni.nombre}"/>
+                            </p:column>
+                            
+                            <p:column headerText="Descripcion">
+                                <h:outputText value="#{uni.descripcion}"/>
+                            </p:column>
+                            <p:column style="width:32px;text-align: center">
+                                <p:commandButton icon="ui-icon-pencil" actionListener="#{unidadMedidaMB.selecUnidad(uni)}" update=":IDTvw"/>
+                            </p:column>
+                        </p:dataTable>
+                    </h:form>   
+                </p:tab>
+                
+                <p:tab title="Detalle">
+                <h:form id="IDFRMUnidad">      
+                <p:menubar>
+                    <p:menuitem value="Nuevo"  icon="ui-icon-plusthick"  actionListener="#{unidadMedidaMB.newUnidadMedida()}" update="IDFRMUnidad" />
+                    
+                    <p:menuitem value="Guardar"  icon="ui-icon-disk" actionListener="#{unidadMedidaMB.saveUnidad}" update=":IDTvw"   />
+                </p:menubar>
+                    
+                   <h:panelGrid columns="2">
+                        <h:outputLabel value="Codigo:"/>
+                        <p:inputText value="#{unidadMedidaMB.unidad.unidadId}" />
+                        <h:outputLabel value="Nombre"/>
+                        <p:inputText value="#{unidadMedidaMB.unidad.nombre}"/>
+                        <h:outputLabel value="Abreviatura:"/>
+                        <p:inputText value="#{unidadMedidaMB.unidad.abreviatura}"/>
+                        <h:outputLabel value="Descripcion:"/>
+                        <p:inputText value="#{unidadMedidaMB.unidad.descripcion}"/>
+                    </h:panelGrid>
+                </h:form>    
+                </p:tab>
+            </p:tabView>
+       
+    </ui:define>      
+    
+    
+</ui:composition>

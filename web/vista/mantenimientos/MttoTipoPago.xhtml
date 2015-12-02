@@ -1,0 +1,61 @@
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:f="http://java.sun.com/jsf/core" 
+    template="../template.xhtml">
+    <ui:define name="contenido">
+        
+        <p:tabView activeIndex=""  id="IDTvw">
+                <p:tab title="Busquedas">
+                    <h:form id="IDFrmBusq">
+                        <h:panelGrid columns="7">
+                            <h:outputLabel value="Codigo:"/>
+                            <p:inputText value="#{tipopagoMB.nombre}" />
+                            <h:outputLabel value="Nombre"/>
+                            <p:inputText value=""/>
+                            <p:commandButton  icon="ui-icon-search" update="IDTableTipop"></p:commandButton>
+                       </h:panelGrid>
+                             
+                        <p:dataTable id="IDTableTipop" var="tipopa" value=""> 
+                            <f:facet name="header">
+                                Resultado de la Busqueda
+                            </f:facet>
+                            <p:column headerText="ID">
+                                <h:outputText value=""/>
+                            </p:column>
+                            <p:column headerText="Nombre">
+                                <h:outputText value=""/>
+                            </p:column>
+                            <p:column headerText="Descripcion">
+                                <h:outputText value=""/>
+                            </p:column>
+                            <p:column style="width:32px;text-align: center">
+                                <p:commandButton icon="ui-icon-pencil"  update=":IDTvw"/>
+                            </p:column>
+                        </p:dataTable>
+                    </h:form>   
+                </p:tab>
+            <p:tab title="Detalle">
+                <h:form id="IDFRMTipopago">  
+                <p:menubar>
+                    <p:menuitem value="Nuevo"  icon="ui-icon-plusthick"   update="IDFRMTipopago" />
+                    
+                    <p:menuitem value="Guardar"  icon="ui-icon-disk"  update=":IDTvw" />
+                </p:menubar>
+                    
+                   <h:panelGrid columns="2">
+                        <h:outputLabel value="Codigo:"/>
+                        <p:inputText value="" />
+                        <h:outputLabel value="Nombre"/>
+                        <p:inputText value=""/>
+                        <h:outputLabel value="Descripcion:"/>
+                        <p:inputText value=""/>
+                    </h:panelGrid>
+                </h:form>    
+                </p:tab>
+                
+                
+            </p:tabView>
+            
+    </ui:define>
+</ui:composition>
